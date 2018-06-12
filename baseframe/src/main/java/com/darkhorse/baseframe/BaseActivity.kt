@@ -97,18 +97,21 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     protected fun requestPermission(code: Int) {
         val list = findPermissionByCode(code)
         val names = StringBuilder()
-//        val permissions = ArrayList<String>()
-        val permissions: Array<String> = arrayOf()
+        val permissions = ArrayList<String>()
         for (bean in list!!) {
             if (!EasyPermissions.hasPermissions(this, bean.permission)) {
                 names.append(bean.name + ",")
-                permissions.plus(bean.permission)
+                permissions.add(bean.permission)
             }
         }
 
+        val array = arrayOfNulls<String>(permissions.size)
+        for (i in 0 until array.size) {
+            array[i] = permissions[i]
+        }
         for (i in permissions)
-            if (names.length > 1 && permissions.size > 1) {
-                EasyPermissions.requestPermissions(this, "应用需要使用${names.subSequence(0, names.length - 1)}功能，是否给予权限", code, *permissions)
+            if (names.length >= 1 && permissions.size >= 1) {
+                EasyPermissions.requestPermissions(this, "应用需要使用${names.subSequence(0, names.length - 1)}功能，是否给予权限", code, *array)
             }
     }
 
@@ -130,5 +133,24 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         }
 
         return list
+    }
+
+    protected fun hasPermission(vararg codes: Int): Boolean {
+        for (code in codes) {
+            when (code) {
+                PermissionCode.CALENDAR -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_CALENDAR)) return false
+                PermissionCode.CAMERA -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) return false
+                PermissionCode.CONTACTS -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_CONTACTS)) return false
+                PermissionCode.LOCATION -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) return false
+                PermissionCode.AUDIO -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO)) return false
+                PermissionCode.PHONE -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.CALL_PHONE)) return false
+                PermissionCode.SMS -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_SMS)) return false
+                PermissionCode.STORAGE -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) return false
+                PermissionCode.SENSORS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH)
+                    if (!EasyPermissions.hasPermissions(this, Manifest.permission.BODY_SENSORS))
+                        return false
+            }
+        }
+        return true
     }
 }
