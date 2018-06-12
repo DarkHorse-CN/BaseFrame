@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        int tet=  8&8;
+        System.out.println(tet);
 
-        assertEquals("com.darkhorse.baseframe", appContext.getPackageName());
+//        assertEquals("com.darkhorse.baseframe", appContext.getPackageName());
     }
 }
