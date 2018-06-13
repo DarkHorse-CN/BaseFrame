@@ -2,13 +2,12 @@ package com.darkhorse.baseframe
 
 import android.Manifest
 import android.app.Activity
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.darkhorse.baseframe.permission.PermissionBean
 import com.darkhorse.baseframe.permission.PermissionCode
-import com.example.baseframe.utils.AppManager
+import com.darkhorse.toolset.utils.AppManager
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*

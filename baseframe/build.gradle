@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -23,22 +23,20 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$support_v7"
+    implementation rootProject.ext.dependencies.appcompatV7
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    implementation 'com.github.DarkHorse-CN:Toolset:+'
+
     //Material设计模式
-    implementation "com.android.support:design:$support_v7"
+    implementation rootProject.ext.dependencies.design
     //多个dex处理
     api 'com.android.support:multidex:1.0.3'
-    //日志打印
-    api 'com.blankj:alog:1.8.0'
     //权限申请
     api 'pub.devrel:easypermissions:1.2.0'
-    //JSON解析库依赖
-    api 'com.google.code.gson:gson:2.8.2'
 }
 repositories {
     mavenCentral()
