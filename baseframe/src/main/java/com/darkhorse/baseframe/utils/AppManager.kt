@@ -27,10 +27,16 @@ object AppManager {
     }
 
     /**
+     * 移除Activity
+     */
+    fun removeActivity(activity: BaseActivity) {
+        mActivityStack.remove(activity)
+    }
+
+    /**
      * 关闭指定Activity
      */
     fun finishActivity(activity: BaseActivity) {
-        mActivityStack.remove(activity)
         activity.finish()
     }
 
@@ -44,7 +50,7 @@ object AppManager {
     /**
      * 退出APP并关闭所有Activity
      */
-    fun exit() {
+    fun appExit() {
         val currentTime = TimeUtils.currentTime()
         if (isExit) {
             AppManager.exitNow()
@@ -76,7 +82,7 @@ object AppManager {
     /**
      * 启动Activity
      */
-    fun startActivity(clz: Class<out Activity>, bundle: Bundle?, isFinished: Boolean) {
+    fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
         val activity = currentActivity()
         val intent = Intent(activity, clz)
         if (bundle != null) {
@@ -91,7 +97,7 @@ object AppManager {
     /**
      * 启动ActivityForResult
      */
-    fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle?) {
+    fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
         val activity = currentActivity()
         val intent = Intent(activity, clz)
         if (bundle != null) {

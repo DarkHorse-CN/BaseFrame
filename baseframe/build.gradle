@@ -37,7 +37,8 @@ dependencies {
     api 'com.blankj:alog:1.8.0'
     //权限申请
     api 'pub.devrel:easypermissions:1.2.0'
-
+    //JSON解析库依赖
+    api 'com.google.code.gson:gson:2.8.2'
 }
 repositories {
     mavenCentral()

@@ -2,16 +2,13 @@ package com.darkhorse.baseframe
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.widget.Toast
-import com.blankj.ALog
 import com.darkhorse.baseframe.permission.PermissionBean
 import com.darkhorse.baseframe.permission.PermissionCode
+import com.example.baseframe.utils.AppManager
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
@@ -26,6 +23,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppManager.addActivity(this)
         mContext = this
         preSetContentView()
         setContentView(getLayoutId())
@@ -46,16 +44,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     abstract fun initData()
 
-    protected fun startActivity(clz: Class<out Activity>) {
-        startActivity(Intent(mContext, clz))
-    }
-
-    protected fun startActivity(clz: Class<out Activity>, bundle: Bundle) {
-        val intent = Intent(mContext, clz)
-        intent.putExtra("data", bundle)
-        startActivity(intent)
-    }
-
     protected fun getBundle(): Bundle? {
         if (mBundle == null) {
             mBundle = intent.getBundleExtra("data")
@@ -63,6 +51,27 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         return mBundle
     }
 
+    protected fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
+        AppManager.startActivity(clz, bundle)
+    }
+
+    protected fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
+        AppManager.startActivityForResult(clz, requestCode, bundle)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AppManager.removeActivity(this)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        AppManager.finish()
+    }
+
+    /**
+     * 权限相关
+     */
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
 
     }
