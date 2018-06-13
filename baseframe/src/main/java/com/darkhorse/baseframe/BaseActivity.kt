@@ -105,13 +105,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
             }
         }
 
-        val array = arrayOfNulls<String>(permissions.size)
-        for (i in 0 until array.size) {
-            array[i] = permissions[i]
-        }
         for (i in permissions)
-            if (names.length >= 1 && permissions.size >= 1) {
-                EasyPermissions.requestPermissions(this, "应用需要使用${names.subSequence(0, names.length - 1)}功能，是否给予权限", code, *array)
+            if (names.isNotEmpty() && permissions.size >= 1) {
+                EasyPermissions.requestPermissions(this, "应用需要使用${names.subSequence(0, names.length - 1)}功能，是否给予权限", code, *permissions.toTypedArray())
             }
     }
 
