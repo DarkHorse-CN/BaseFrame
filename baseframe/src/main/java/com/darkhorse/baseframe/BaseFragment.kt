@@ -8,19 +8,20 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.darkhorse.toolset.utils.AppManager
 
 /**
  * Description:
- * Created by DarkHorse on 2018/5/18.
+ * Created by DarkHorse on 2018/6/27.
  */
 abstract class BaseFragment : Fragment() {
 
-    lateinit var mContext: Context
-    lateinit var mActivity: BaseActivity
+    protected lateinit var mContext: Context
+    protected lateinit var mActivity: BaseActivity
+    private lateinit var mRootView: View
 
-    //实现懒加载
-    private var isViewCreated: Boolean = false
-    private var isUIVisible: Boolean = false
+    private var isViewCreated: Boolean = false  //判断是否已经创建View
+    private var isUIVisible: Boolean = false    //判断View是否已经显示
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,48 +30,43 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(getLayoutId(), container, false)
-        initView(rootView)
-        initListener(rootView)
-        return rootView
+        mRootView = layoutInflater.inflate(getLayoutId(), null, false)
+        initView(mRootView)
+        initData()
+        return mRootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isViewCreated = true
-        lazyLoad()
+        startLazyLoad()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         isUIVisible = isVisibleToUser
-
+        startLazyLoad()
     }
 
-    private fun lazyLoad() {
-        if (isUIVisible && isViewCreated) {
-            initData()
-            isViewCreated = false
-            isUIVisible = false
+    private fun startLazyLoad() {
+        if (isViewCreated && isUIVisible) {
+            lazyLoad()
         }
+    }
+
+    protected fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
+        AppManager.startActivity(clz, bundle, isFinished)
+    }
+
+    protected fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
+        AppManager.startActivityForResult(clz, requestCode, bundle)
     }
 
     abstract fun getLayoutId(): Int
 
     abstract fun initView(rootView: View)
 
-    abstract fun initListener(rootView: View)
-
     abstract fun initData()
 
-    protected fun startActivity(clz: Class<out Activity>) {
-        startActivity(Intent(mContext, clz))
-    }
-
-    protected fun startActivity(clz: Class<out Activity>, bundle: Bundle) {
-        val intent = Intent(mContext, clz)
-        intent.putExtra("data", bundle)
-        startActivity(intent)
-    }
-
+    abstract fun lazyLoad()
 }

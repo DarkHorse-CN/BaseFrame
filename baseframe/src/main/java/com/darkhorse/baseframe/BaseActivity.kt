@@ -27,7 +27,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         preSetContentView()
         setContentView(getLayoutId())
         initView()
-        initListener()
         initData()
     }
 
@@ -39,8 +38,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     abstract fun initView()
 
-    abstract fun initListener()
-
     abstract fun initData()
 
     protected fun getBundle(): Bundle? {
@@ -51,7 +48,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     }
 
     protected fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
-        AppManager.startActivity(clz, bundle)
+        AppManager.startActivity(clz, bundle,isFinished)
     }
 
     protected fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
@@ -69,12 +66,15 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     }
 
     /**
-     * 权限相关
+     * 给予权限回调
      */
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
 
     }
 
+    /**
+     * 拒绝权限回调
+     */
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(mContext, perms)) {
             val list = findPermissionByCode(requestCode)
@@ -97,11 +97,17 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         }
     }
 
+    /**
+     * 权限请求返回
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, mContext)
     }
 
+    /**
+     * 请求权限
+     */
     protected fun requestPermission(code: Int) {
         val list = findPermissionByCode(code)
         val names = StringBuilder()
@@ -119,6 +125,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
             }
     }
 
+    /**
+     * 通过权限代码寻找权限
+     */
     private fun findPermissionByCode(code: Int): List<PermissionBean>? {
         val list = ArrayList<PermissionBean>()
 
@@ -139,6 +148,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         return list
     }
 
+    /**
+     * 判断是否拥有权限
+     */
     protected fun hasPermission(vararg codes: Int): Boolean {
         for (code in codes) {
             when (code) {
