@@ -48,7 +48,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     }
 
     protected fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
-        AppManager.startActivity(clz, bundle,isFinished)
+        AppManager.startActivity(clz, bundle, isFinished)
     }
 
     protected fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
@@ -119,10 +119,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
             }
         }
 
-        for (i in permissions)
-            if (names.isNotEmpty() && permissions.size >= 1) {
-                EasyPermissions.requestPermissions(this, "应用需要使用${names.subSequence(0, names.length - 1)}功能，是否给予权限", code, *permissions.toTypedArray())
-            }
+        if (names.isNotEmpty() && permissions.size >= 1) {
+            EasyPermissions.requestPermissions(this, "应用需要使用${names.subSequence(0, names.length - 1)}功能，是否给予权限", code, *permissions.toTypedArray())
+        }
     }
 
     /**
