@@ -29,7 +29,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
-    api 'com.github.DarkHorse-CN:Toolset:+'
     //多个dex处理
     api 'com.android.support:multidex:1.0.3'
     //权限申请

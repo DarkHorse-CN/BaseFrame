@@ -18,9 +18,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
-    }
-
-    override fun initListener() {
         btn_access_camera.setOnClickListener(this)
     }
 

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.darkhorse.baseframe.permission.PermissionBean
 import com.darkhorse.baseframe.permission.PermissionCode
-import com.darkhorse.toolset.utils.AppManager
+import com.darkhorse.baseframe.utils.AppManager
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
