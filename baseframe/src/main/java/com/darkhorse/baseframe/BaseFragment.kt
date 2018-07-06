@@ -53,11 +53,11 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    protected fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
+    protected fun startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
         AppManager.startActivity(clz, bundle, isFinished)
     }
 
-    protected fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
+    protected fun startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
         AppManager.startActivityForResult(clz, requestCode, bundle)
     }
 

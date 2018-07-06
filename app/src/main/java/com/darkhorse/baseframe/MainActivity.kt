@@ -1,6 +1,7 @@
 package com.darkhorse.baseframe
 
 import android.content.Intent
+import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import com.darkhorse.baseframe.permission.PermissionCode
@@ -13,6 +14,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         when (v) {
             btn_access_camera -> openCamera()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun getLayoutId(): Int = R.layout.activity_main

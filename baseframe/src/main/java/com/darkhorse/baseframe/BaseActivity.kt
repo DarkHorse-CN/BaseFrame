@@ -2,9 +2,13 @@ package com.darkhorse.baseframe
 
 import android.Manifest
 import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.darkhorse.baseframe.extension.toast
 import com.darkhorse.baseframe.permission.PermissionBean
 import com.darkhorse.baseframe.permission.PermissionCode
 import com.darkhorse.baseframe.utils.AppManager
@@ -17,21 +21,30 @@ import java.util.*
  * Created by DarkHorse on 2018/5/8.
  */
 abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
-    protected lateinit var mContext: Activity
+    protected val mContext by lazy {
+        this
+    }
     protected var mBundle: Bundle? = null
+        get() {
+            if (field == null) {
+                field = intent.getBundleExtra("data")
+            }
+            return field
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppManager.addActivity(this)
-        mContext = this
+        lifecycle.addObserver(AppManager)
+
         preSetContentView()
         setContentView(getLayoutId())
+
         initView()
         initData()
     }
 
     protected fun preSetContentView() {
-
     }
 
     abstract fun getLayoutId(): Int
@@ -40,24 +53,12 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     abstract fun initData()
 
-    protected fun getBundle(): Bundle? {
-        if (mBundle == null) {
-            mBundle = intent.getBundleExtra("data")
-        }
-        return mBundle
-    }
-
-    protected fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
+    protected fun startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
         AppManager.startActivity(clz, bundle, isFinished)
     }
 
-    protected fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
+    protected fun startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
         AppManager.startActivityForResult(clz, requestCode, bundle)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        AppManager.removeActivity(this)
     }
 
     override fun onBackPressed() {

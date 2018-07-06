@@ -4,28 +4,27 @@ import android.util.Log
 import android.widget.Toast
 import com.darkhorse.baseframe.utils.AppManager
 
-fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(AppManager.currentActivity(), msg, duration).show()
+fun toast(msg: Any, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(AppManager.mApplication, msg.toString(), duration).show()
 }
 
-fun d(msg: String) {
-    Log.d(AppManager.currentActivity().javaClass.name, msg)
+fun d(msg: Any) {
+    Log.d(AppManager.currentActivity().javaClass.name, msg.toString())
 }
 
-fun e(msg: String) {
-    Log.e(AppManager.currentActivity().javaClass.name, msg)
+fun e(msg: Any) {
+    Log.e(AppManager.currentActivity().javaClass.name, msg.toString())
 }
 
-fun i(msg: String) {
-    Log.i(AppManager.currentActivity().javaClass.name, msg)
+fun i(msg: Any) {
+    Log.i(AppManager.currentActivity().javaClass.name, msg.toString())
 }
 
-
-fun v(msg: String) {
-    Log.v(AppManager.currentActivity().javaClass.name, msg)
+fun v(msg: Any) {
+    Log.v(AppManager.currentActivity().javaClass.name, msg.toString())
 }
 
-fun w(msg: String) {
-    Log.w(AppManager.currentActivity().javaClass.name, msg)
+fun w(msg: Any) {
+    Log.w(AppManager.currentActivity().javaClass.name, msg.toString())
 }
 
