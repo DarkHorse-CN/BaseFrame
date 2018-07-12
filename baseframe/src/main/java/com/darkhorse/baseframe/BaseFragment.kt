@@ -29,11 +29,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mRootView = layoutInflater.inflate(getLayoutId(), null, false)
+        mRootView = getRootView()
         initView(mRootView)
         initData()
         return mRootView
     }
+
+    protected fun getRootView(): View = layoutInflater.inflate(getLayoutId(), null, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -42,9 +42,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     protected fun preSetContentView() {
     }
 
-    protected fun getContentView(): View {
-        return layoutInflater.inflate(getLayoutId(), null)
-    }
+    protected fun getContentView(): View = layoutInflater.inflate(getLayoutId(), null)
 
     abstract fun getLayoutId(): Int
 
