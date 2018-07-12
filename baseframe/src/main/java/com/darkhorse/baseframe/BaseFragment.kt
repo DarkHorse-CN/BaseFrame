@@ -70,4 +70,10 @@ abstract class BaseFragment : Fragment() {
     abstract fun initData()
 
     abstract fun lazyLoad()
+
+    protected fun hasPermission(vararg codes: Int): Boolean = mActivity.hasPermission()
+
+    protected fun requestPermission(code: Int) {
+        mActivity.requestPermission(code)
+    }
 }

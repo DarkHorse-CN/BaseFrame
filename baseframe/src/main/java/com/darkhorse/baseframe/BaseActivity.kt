@@ -39,10 +39,10 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         initData()
     }
 
-    open fun preSetContentView() {
+    protected open fun preSetContentView() {
     }
 
-    open fun getContentView(): View = layoutInflater.inflate(getLayoutId(), null)
+    protected open fun getContentView(): View = layoutInflater.inflate(getLayoutId(), null)
 
     abstract fun getLayoutId(): Int
 
@@ -106,7 +106,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     /**
      * 请求权限
      */
-    protected fun requestPermission(code: Int) {
+    fun requestPermission(code: Int) {
         val list = findPermissionByCode(code)
         val names = StringBuilder()
         val permissions = ArrayList<String>()
@@ -148,7 +148,7 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     /**
      * 判断是否拥有权限
      */
-    protected fun hasPermission(vararg codes: Int): Boolean {
+    fun hasPermission(vararg codes: Int): Boolean {
         for (code in codes) {
             when (code) {
                 PermissionCode.CALENDAR -> if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_CALENDAR)) return false
