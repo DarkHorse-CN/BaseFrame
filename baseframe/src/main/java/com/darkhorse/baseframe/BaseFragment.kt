@@ -35,8 +35,7 @@ abstract class BaseFragment : Fragment() {
         return mRootView
     }
 
-    protected fun getRootView(): View = layoutInflater.inflate(getLayoutId(), null, false)
-
+    open fun getRootView(): View = layoutInflater.inflate(getLayoutId(), null, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
