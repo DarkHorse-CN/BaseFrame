@@ -1,20 +1,15 @@
 package com.darkhorse.baseframe
 
 import android.Manifest
-import android.app.Activity
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.darkhorse.baseframe.extension.toast
 import com.darkhorse.baseframe.permission.PermissionBean
 import com.darkhorse.baseframe.permission.PermissionCode
 import com.darkhorse.baseframe.utils.AppManager
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import java.util.*
+import android.view.View
 
 /**
  * Description:
@@ -38,13 +33,17 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         lifecycle.addObserver(AppManager)
 
         preSetContentView()
-        setContentView(getLayoutId())
+        setContentView(getContentView())
 
         initView()
         initData()
     }
 
     protected fun preSetContentView() {
+    }
+
+    protected fun getContentView(): View {
+        return layoutInflater.inflate(getLayoutId(), null)
     }
 
     abstract fun getLayoutId(): Int
