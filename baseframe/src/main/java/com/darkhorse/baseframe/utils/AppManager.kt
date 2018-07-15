@@ -1,6 +1,5 @@
 package com.darkhorse.baseframe.utils
 
-import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -10,7 +9,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.darkhorse.baseframe.BaseActivity
-import com.darkhorse.baseframe.extension.i
 import java.util.*
 
 /**
