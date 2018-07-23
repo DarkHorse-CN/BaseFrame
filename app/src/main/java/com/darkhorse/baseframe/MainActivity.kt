@@ -8,7 +8,6 @@ import com.darkhorse.baseframe.permission.PermissionCode
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 
-
 class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
@@ -25,7 +24,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         btn_access_camera.setOnClickListener(this)
     }
-
     override fun initData() {
     }
 

@@ -33,10 +33,6 @@ dependencies {
     api 'com.android.support:multidex:1.0.3'
     //权限申请
     api 'pub.devrel:easypermissions:1.2.0'
-
-//    implementation "android.arch.lifecycle:runtime:1.1.1"
-    implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
-//    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
 }
 repositories {
     mavenCentral()

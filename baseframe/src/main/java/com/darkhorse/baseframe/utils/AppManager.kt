@@ -1,6 +1,5 @@
 package com.darkhorse.baseframe.utils
 
-import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
