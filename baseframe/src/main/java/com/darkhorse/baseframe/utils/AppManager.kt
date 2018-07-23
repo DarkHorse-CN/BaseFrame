@@ -10,7 +10,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.darkhorse.baseframe.BaseActivity
-import com.darkhorse.baseframe.extension.i
 import java.util.*
 
 /**
@@ -89,12 +88,12 @@ object AppManager : LifecycleObserver {
     /**
      * 获取当前Activity
      */
-    fun currentActivity(): BaseActivity = mActivityStack.peek()
+    fun currentActivity(): Activity = mActivityStack.peek()
 
     /**
      * 启动Activity
      */
-    fun startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
+    fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
         val activity = currentActivity()
         val intent = Intent(activity, clz)
         if (bundle != null) {
@@ -109,7 +108,7 @@ object AppManager : LifecycleObserver {
     /**
      * 启动ActivityForResult
      */
-    fun startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
+    fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
         val activity = currentActivity()
         val intent = Intent(activity, clz)
         if (bundle != null) {

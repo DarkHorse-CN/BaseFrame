@@ -1,13 +1,11 @@
 package com.darkhorse.baseframe
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.darkhorse.baseframe.utils.AppManager
 
 /**
  * Description:
@@ -53,14 +51,6 @@ abstract class BaseFragment : Fragment() {
         if (isViewCreated && isUIVisible) {
             lazyLoad()
         }
-    }
-
-    protected fun startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
-        AppManager.startActivity(clz, bundle, isFinished)
-    }
-
-    protected fun startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
-        AppManager.startActivityForResult(clz, requestCode, bundle)
     }
 
     abstract fun getLayoutId(): Int

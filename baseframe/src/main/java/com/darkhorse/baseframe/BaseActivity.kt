@@ -50,14 +50,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     abstract fun initData()
 
-    protected fun startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
-        AppManager.startActivity(clz, bundle, isFinished)
-    }
-
-    protected fun startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
-        AppManager.startActivityForResult(clz, requestCode, bundle)
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
         AppManager.finish()
