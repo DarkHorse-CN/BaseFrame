@@ -1,14 +1,15 @@
 package com.darkhorse.baseframe.utils
 
+import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import com.darkhorse.baseframe.BaseActivity
 import java.util.*
 
 /**
@@ -19,8 +20,8 @@ object AppManager : LifecycleObserver {
     private var isExit = false
     private var mTimer = Timer()
 
-    private val mActivityStack: Stack<BaseActivity> by lazy {
-        Stack<BaseActivity>()
+    private val mActivityStack: Stack<Activity> by lazy {
+        Stack<Activity>()
     }
 
     var mApplication: Application? = null
@@ -32,8 +33,9 @@ object AppManager : LifecycleObserver {
     /**
      * 添加Activity
      */
-    fun addActivity(activity: BaseActivity) {
-        mActivityStack.push(activity)
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun addActivity(owner: LifecycleOwner) {
+        mActivityStack.push(owner as Activity)
     }
 
     /**
@@ -41,13 +43,13 @@ object AppManager : LifecycleObserver {
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun removeActivity(owner: LifecycleOwner) {
-        mActivityStack.remove(owner as BaseActivity)
+        mActivityStack.remove(owner as Activity)
     }
 
     /**
      * 关闭指定Activity
      */
-    fun finishActivity(activity: BaseActivity) {
+    fun finishActivity(activity: Activity) {
         activity.finish()
     }
 
@@ -87,13 +89,23 @@ object AppManager : LifecycleObserver {
     /**
      * 获取当前Activity
      */
-    fun currentActivity(): Activity = mActivityStack.peek()
+    fun currentActivity(): Activity? =
+            if (mActivityStack.size > 0) {
+                mActivityStack.peek()
+            } else {
+                null
+            }
+
+    fun context(): Context = if (currentActivity() == null) {
+        mApplication as Context
+    } else {
+        currentActivity() as Context
+    }
 
     /**
      * 启动Activity
      */
-    fun startActivity(clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
-        val activity = currentActivity()
+    fun startActivity(activity: Activity, clz: Class<out Activity>, bundle: Bundle? = null, isFinished: Boolean = false) {
         val intent = Intent(activity, clz)
         if (bundle != null) {
             intent.putExtra("data", bundle)
@@ -107,8 +119,7 @@ object AppManager : LifecycleObserver {
     /**
      * 启动ActivityForResult
      */
-    fun startActivityForResult(clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
-        val activity = currentActivity()
+    fun startActivityForResult(activity: Activity, clz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
         val intent = Intent(activity, clz)
         if (bundle != null) {
             intent.putExtra("data", bundle)

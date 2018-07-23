@@ -4,21 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/btn_access_camera"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:text="second activity"
         android:gravity="center"
-        android:text="点击获取照相机权限" />
+        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/btn_goto_second_activity"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="跳转第二个Activity"/>
 
 </LinearLayout>

@@ -1,9 +1,10 @@
 package com.darkhorse.baseframe
 
 import android.content.Intent
-import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import com.darkhorse.baseframe.extension.i
+import com.darkhorse.baseframe.extension.startActivity
 import com.darkhorse.baseframe.permission.PermissionCode
 import kotlinx.android.synthetic.main.activity_main.*
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -12,17 +13,16 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             btn_access_camera -> openCamera()
+            btn_goto_second_activity -> startActivity(SecondActivity::class.java)
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
+        i("MainActivity")
         btn_access_camera.setOnClickListener(this)
+        btn_goto_second_activity.setOnClickListener(this)
     }
     override fun initData() {
     }

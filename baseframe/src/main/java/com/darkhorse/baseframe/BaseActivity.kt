@@ -10,6 +10,7 @@ import com.darkhorse.baseframe.utils.AppManager
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import android.view.View
+import com.darkhorse.baseframe.extension.i
 
 /**
  * Description:
@@ -29,12 +30,9 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppManager.addActivity(this)
         lifecycle.addObserver(AppManager)
-
         preSetContentView()
         setContentView(getContentView())
-
         initView()
         initData()
     }
@@ -59,7 +57,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
      * 给予权限回调
      */
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-
     }
 
     /**

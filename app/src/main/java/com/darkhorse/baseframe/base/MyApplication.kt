@@ -10,4 +10,9 @@ class MyApplication : BaseApplication() {
     override fun initUtils() {
 
     }
+
+    override fun onCreate() {
+        super.onCreate()
+
+    }
 }
