@@ -1,6 +1,6 @@
 package com.darkhorse.baseframe
 
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.darkhorse.baseframe.utils.AppManager
 
 /**

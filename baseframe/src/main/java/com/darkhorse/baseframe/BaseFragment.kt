@@ -2,7 +2,7 @@ package com.darkhorse.baseframe
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import android.view.ViewGroup
  * Description:
  * Created by DarkHorse on 2018/6/27.
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : androidx.fragment.app.Fragment() {
 
     protected lateinit var mContext: Context
     protected lateinit var mActivity: BaseActivity

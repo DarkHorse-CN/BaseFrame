@@ -2,7 +2,7 @@ package com.darkhorse.baseframe.extension
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.darkhorse.baseframe.BaseActivity
 import com.darkhorse.baseframe.utils.AppManager
 
@@ -18,10 +18,10 @@ fun Activity.startActivityForResult(clz: Class<out Activity>, requestCode: Int, 
     AppManager.startActivityForResult(this, clz, requestCode, bundle)
 }
 
-fun Fragment.startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
+fun androidx.fragment.app.Fragment.startActivity(clz: Class<out BaseActivity>, bundle: Bundle? = null, isFinished: Boolean = false) {
     AppManager.startActivity(activity!!, clz, bundle, isFinished)
 }
 
-fun Fragment.startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
+fun androidx.fragment.app.Fragment.startActivityForResult(clz: Class<out BaseActivity>, requestCode: Int, bundle: Bundle? = null) {
     AppManager.startActivityForResult(activity!!, clz, requestCode, bundle)
 }

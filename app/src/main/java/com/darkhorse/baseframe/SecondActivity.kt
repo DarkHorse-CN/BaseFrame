@@ -1,7 +1,5 @@
 package com.darkhorse.baseframe
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import com.darkhorse.baseframe.extension.i
 
 class SecondActivity : BaseActivity() {
