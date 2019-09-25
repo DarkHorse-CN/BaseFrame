@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'android-aspectjx'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -8,34 +10,72 @@ android {
         targetSdkVersion target_sdk_version
         versionCode version_code
         versionName version_name
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation fileTree(include: ["*.jar"], dir: "libs")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$androidx_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout_version"
+    implementation "androidx.core:core-ktx:$androidx_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+
+    //RxLifeCycle
+    implementation "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:2.2.2"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.2"
 
     //多个dex处理
     api 'androidx.multidex:multidex:2.0.1'
+
     //权限申请
-    api 'pub.devrel:easypermissions:1.2.0'
+    api "pub.devrel:easypermissions:1.2.0"
+
     //Json解析库Gson
     api "com.google.code.gson:gson:2.8.5"
+
+    //图片加载库
+    api "com.github.bumptech.glide:glide:4.8.0"
+
+    //圆形图片库
+    api 'de.hdodenhof:circleimageview:3.0.0'
+
+    //RecyclerView辅助类
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38"
+
+    //异步操作RxJava框架依赖
+    api 'io.reactivex.rxjava2:rxjava:2.2.3'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    api 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+
+    //AOP编程——https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx
+    api 'org.aspectj:aspectjrt:1.9.1'
+
+    //屏幕适配
+    api 'me.jessyan:autosize:1.1.2'
 }
-repositories {
-    mavenCentral()
-}
+

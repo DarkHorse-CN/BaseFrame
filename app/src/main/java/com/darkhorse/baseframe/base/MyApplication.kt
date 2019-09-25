@@ -1,6 +1,6 @@
 package com.darkhorse.baseframe.base
 
-import com.darkhorse.baseframe.BaseApplication
+import com.darkhorse.baseframe.utils.AppManager
 
 /**
  * Description:
@@ -8,7 +8,7 @@ import com.darkhorse.baseframe.BaseApplication
  */
 class MyApplication : BaseApplication() {
     override fun initUtils() {
-
+        AppManager.init(this)
     }
 
     override fun onCreate() {
