@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.Service
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -14,16 +12,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
+import com.darkhorse.baseframe.BuildConfig
 import com.darkhorse.baseframe.base.BaseApplication
 import com.darkhorse.baseframe.extension.d
 import com.darkhorse.baseframe.extension.e
 import com.darkhorse.baseframe.extension.toast
-import com.darkhorse.baseframe.BuildConfig
 import com.darkhorse.baseframe.service.DaemonService
 import com.darkhorse.baseframe.service.GuardService
 import com.darkhorse.baseframe.service.JobWakeUpService
-import com.darkhorse.baseframe.utils.CrashCatchHelper
-import com.darkhorse.baseframe.utils.LogcatCatchHelper
 import java.io.File
 import java.io.IOException
 import java.util.*

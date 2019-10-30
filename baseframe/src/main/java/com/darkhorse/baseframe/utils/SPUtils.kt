@@ -2,91 +2,125 @@ package com.darkhorse.baseframe.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.text.TextUtils
-
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-import java.lang.reflect.Type
-import java.util.ArrayList
-
 object SPUtils {
 
-    private val mSharedPreferences: SharedPreferences by lazy {
-        AppManager.mApplication.getSharedPreferences(AppManager.getPackageName(), Context.MODE_PRIVATE)
-    }
-    private val mGson: Gson by lazy {
-        Gson()
+    /**
+     * 保存在手机的文件名称，路径：Path = /data/data/<package name>/shared_prefs
+    </package> */
+    lateinit var mSharedPreferences: SharedPreferences
+
+    fun init(context: Context, preferencesName: String) {
+        mSharedPreferences = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
     }
 
-    fun put(key: String, value: Any) {
-        val editor = mSharedPreferences.edit()
-        when (value) {
-            is String -> editor.putString(key, value)
-            is Int -> editor.putInt(key, value)
-            is Boolean -> editor.putBoolean(key, value)
-            is Long -> editor.putLong(key, value)
-            is Float -> editor.putFloat(key, value)
-            else -> editor.putString(key, mGson.toJson(value))
+    /**
+     * 保存数据的方法，根据传入数据参数的类型使用不同的保存方法
+     * @param key
+     * @param valueObject
+     */
+    fun put(key: String, valueObject: Any) {
+        try {
+            val editor = mSharedPreferences.edit()
+            when (valueObject) {
+                is String -> editor.putString(key, valueObject)
+                is Int -> editor.putInt(key, valueObject)
+                is Boolean -> editor.putBoolean(key, valueObject)
+                is Float -> editor.putFloat(key, valueObject)
+                is Long -> editor.putLong(key, valueObject)
+                else -> editor.putString(key, Gson().toJson(valueObject))
+            }
+            editor.apply()
+        } catch (e: UninitializedPropertyAccessException) {
+            e.printStackTrace()
         }
-        editor.apply()
     }
 
-    operator fun get(key: String, defaultvalue: String): String? {
-        return mSharedPreferences.getString(key, defaultvalue)
-    }
-
-    operator fun get(key: String, defaultvalue: Int): Int {
-        return mSharedPreferences.getInt(key, defaultvalue)
-    }
-
-    operator fun get(key: String, defaultvalue: Boolean): Boolean {
-        return mSharedPreferences.getBoolean(key, defaultvalue)
-    }
-
-    operator fun get(key: String, defaultvalue: Float): Float {
-        return mSharedPreferences.getFloat(key, defaultvalue)
-    }
-
-
-    operator fun get(key: String, defaultvalue: Long): Long {
-        return mSharedPreferences.getLong(key, defaultvalue)
-    }
-
-    operator fun <T> get(key: String, list: List<T>): List<T> {
-        val json = get(key, "")
-        if (TextUtils.isEmpty(json)) {
-            return list
+    /**
+     * 获取存储在SharedPreferences里的数据，根据默认数据类型调用不同的方法获取数据
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    inline fun <reified T> get(key: String, defaultObject: T): T = when (defaultObject) {
+        is String -> mSharedPreferences.getString(key, defaultObject as String) as T
+        is Int -> mSharedPreferences.getInt(key, (defaultObject as Int)) as T
+        is Boolean -> mSharedPreferences.getBoolean(key, (defaultObject as Boolean)) as T
+        is Float -> mSharedPreferences.getFloat(key, (defaultObject as Float)) as T
+        is Long -> mSharedPreferences.getLong(key, (defaultObject as Long)) as T
+        is List<*> -> {
+            val json = mSharedPreferences.getString(key, "")
+            if (json != "") {
+                Gson().fromJson<T>(json, object : TypeToken<List<*>>() {
+                }.type)
+            } else {
+                defaultObject
+            }
         }
-        val gson = Gson()
-        return gson.fromJson(json, object : TypeToken<ArrayList<T>>() {
-
-        }.type)
-    }
-
-    operator fun <T> get(key: String, set: Set<T>): Set<T> {
-        val json = get(key, "")
-        if (TextUtils.isEmpty(json)) {
-            return set
+        is Set<*> -> {
+            val json = mSharedPreferences.getString(key, "")
+            if (json != "") {
+                Gson().fromJson<T>(json, object : TypeToken<Set<*>>() {
+                }.type)
+            } else {
+                defaultObject
+            }
         }
-        val gson = Gson()
-        return gson.fromJson(json, object : TypeToken<ArrayList<T>>() {
-
-        }.type)
-    }
-
-    operator fun <T : Any> get(key: String, t: T): T {
-        val json = get(key, "")
-        if (TextUtils.isEmpty(json)) {
-            return t
+        else -> {
+            val json = mSharedPreferences.getString(key, "")
+            if (json != "") {
+                Gson().fromJson<T>(json, T::class.java)
+            } else {
+                defaultObject
+            }
         }
-        val gson = Gson()
-        return gson.fromJson(json, t.javaClass as Type)
     }
 
+
+    /**
+     * 查询SharedPreferences是否含有某个key值
+     * @param key
+     * @return
+     */
+    fun contains(key: String): Boolean {
+        var isContains = false
+        try {
+
+            isContains = mSharedPreferences.contains(key)
+        } catch (e: UninitializedPropertyAccessException) {
+            e.printStackTrace()
+        }
+        return isContains
+    }
+
+    /**
+     * 获取SharedPreferences里所有的键值对
+     * @return
+     */
+    fun getAll(): Map<String, *>? {
+        return mSharedPreferences.all
+    }
+
+    /**
+     * 移除某个key值对
+     * @param context
+     * @param key
+     */
     fun remove(key: String) {
         val editor = mSharedPreferences.edit()
         editor.remove(key)
+        editor.apply()
+    }
+
+    /**
+     * 清空SharedPreferences里的所有数据
+     * @param context
+     */
+    fun clear() {
+        val editor = mSharedPreferences.edit()
+        editor.clear()
         editor.apply()
     }
 }
