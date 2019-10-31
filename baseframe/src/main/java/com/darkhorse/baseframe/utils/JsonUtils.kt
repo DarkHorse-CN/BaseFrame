@@ -14,11 +14,11 @@ object JsonUtils {
         return mGson.toJson(value)
     }
 
-    fun <T> fromJson(json: String, classOfT: Class<T>): T {
+    fun <T> fromJson(json: String, classOfT: Class<T>): T? {
         return mGson.fromJson(json, classOfT)
     }
 
-    fun fromJson(json: String, type: Type): Any {
+    fun fromJson(json: String, type: Type): Any? {
         return mGson.fromJson<Any>(json, type)
     }
 }
