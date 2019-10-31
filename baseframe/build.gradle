@@ -67,7 +67,7 @@ dependencies {
     api 'de.hdodenhof:circleimageview:3.0.0'
 
     //RecyclerView辅助类
-    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50"
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49-androidx"
 
     //异步操作RxJava框架依赖
     api 'io.reactivex.rxjava2:rxjava:2.2.3'
