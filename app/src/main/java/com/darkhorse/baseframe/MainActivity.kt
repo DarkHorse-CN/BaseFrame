@@ -1,6 +1,7 @@
 package com.darkhorse.baseframe
 
 import android.view.View
+import com.darkhorse.baseframe.annotation.SingleClick
 import com.darkhorse.baseframe.databinding.ActivityMainBinding
 import com.darkhorse.baseframe.databinding.BaseBindingActivity
 
@@ -16,6 +17,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     override fun initData() {
     }
 
+    @SingleClick
     fun gotoAOP(view: View) {
         startActivity(AOPActivity::class.java)
     }

@@ -45,7 +45,6 @@ dependencies {
 
 
     api "androidx.recyclerview:recyclerview:1.0.0"
-    api "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
     //RxLifeCycle
     implementation "com.trello.rxlifecycle2:rxlifecycle:2.2.2"
