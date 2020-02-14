@@ -10,19 +10,6 @@
         android:orientation="vertical"
         tools:context="com.darkhorse.baseframe.AOPActivity">
 
-        <Button
-            android:layout_width="match_parent"
-            android:onClick="singleClick"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="单击测试" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="moreClick"
-            android:layout_margin="20dp"
-            android:text="多击测试" />
 
 
     </LinearLayout>

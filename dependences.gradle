@@ -12,6 +12,7 @@ ext {
      * 基础组件依赖版本
      */
     androidx_version = '1.1.0'
+    androidx_ktx_version = '1.2.0'
     espresso_version = '3.2.0'
     runner_version = '1.2.0'
     junit_version = "4.12"                  //测试单元

@@ -1,4 +1,4 @@
-package com.darkhorse.baseframe.annotation
+package com.darkhorse.baseframe.aspectj.annotation
 
 /**
  * AnnotationRetention.SOURCE：不存储在编译后的 Class 文件。
@@ -24,4 +24,7 @@ package com.darkhorse.baseframe.annotation
  * AnnotationTarget.TYPEALIAS：@SinceKotlin("1.1") 类型别名，Kotlin1.1已可用。
  **/
 @Target(AnnotationTarget.FUNCTION)
-annotation class MoreClick
+annotation class MoreClick (
+        /** * 点击次数时间  */
+        val value: Int = 3
+)

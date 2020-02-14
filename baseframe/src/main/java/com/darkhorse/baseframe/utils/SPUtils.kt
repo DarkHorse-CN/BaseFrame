@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 object SPUtils {
 
@@ -78,6 +79,14 @@ object SPUtils {
         }
     }
 
+    /**
+     * 兼容Java
+     */
+    fun getString(key: String, default: String): String = mSharedPreferences.getString(key, default) ?: ""
+    fun getInt(key: String, default: Int): Int = mSharedPreferences.getInt(key, default)
+    fun getFloat(key: String, default: Float): Float = mSharedPreferences.getFloat(key, default)
+    fun getBoolean(key: String, default: Boolean): Boolean = mSharedPreferences.getBoolean(key, default)
+    fun getLong(key: String, default: Long): Long = mSharedPreferences.getLong(key, default)
 
     /**
      * 查询SharedPreferences是否含有某个key值

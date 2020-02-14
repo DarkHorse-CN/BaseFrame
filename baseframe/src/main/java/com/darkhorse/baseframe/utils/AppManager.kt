@@ -139,7 +139,7 @@ object AppManager : LifecycleObserver {
 
         val application = getApplication();
         val startIntent =
-            application.packageManager.getLaunchIntentForPackage(application.packageName)
+                application.packageManager.getLaunchIntentForPackage(application.packageName)
         if (startIntent != null) {
             startIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             application.startActivity(startIntent)
@@ -163,10 +163,10 @@ object AppManager : LifecycleObserver {
      */
     @JvmStatic
     fun startActivity(
-        activity: Activity,
-        clz: Class<out Activity>,
-        bundle: Bundle? = null,
-        isFinished: Boolean = false
+            activity: Activity,
+            clz: Class<out Activity>,
+            bundle: Bundle? = null,
+            isFinished: Boolean = false
     ) {
         val intent = Intent(activity, clz)
         if (bundle != null) {
@@ -182,10 +182,10 @@ object AppManager : LifecycleObserver {
      * 启动ActivityForResult
      */
     fun startActivityForResult(
-        activity: Activity,
-        clz: Class<out Activity>,
-        requestCode: Int,
-        bundle: Bundle? = null
+            activity: Activity,
+            clz: Class<out Activity>,
+            requestCode: Int,
+            bundle: Bundle? = null
     ) {
         val intent = Intent(activity, clz)
         if (bundle != null) {
@@ -199,8 +199,8 @@ object AppManager : LifecycleObserver {
      */
     fun startBrowser(activity: Activity, url: String) {
         val intent = Intent()
-            .setAction("android.intent.action.VIEW")
-            .setData(Uri.parse(url))
+                .setAction("android.intent.action.VIEW")
+                .setData(Uri.parse(url))
         activity.startActivity(intent)
     }
 
@@ -313,8 +313,8 @@ object AppManager : LifecycleObserver {
             for (taskInfo in taskInfoList) {
                 if (getPackageName() == taskInfo.topActivity?.packageName) {
                     activityManager.moveTaskToFront(
-                        taskInfo.id,
-                        ActivityManager.MOVE_TASK_WITH_HOME
+                            taskInfo.id,
+                            ActivityManager.MOVE_TASK_WITH_HOME
                     );
                     return;
                 }
@@ -325,6 +325,6 @@ object AppManager : LifecycleObserver {
     /**
      * 获取服务
      */
-    private fun getSystemService(name: String): Any? = mApplication.getSystemService(name)
+    fun getSystemService(name: String): Any? = mApplication.getSystemService(name)
 
 }

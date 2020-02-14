@@ -6,13 +6,14 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
+import org.aspectj.lang.reflect.MethodSignature
 
 @Aspect
 class MoreClick {
     private var mMoreClickDisposable: Disposable? = null
     private var mMoreClickCount = 0
 
-    @Pointcut("execution(@com.darkhorse.baseframe.annotation.MoreClick * *(..))")//方法切入点
+    @Pointcut("execution(@com.darkhorse.baseframe.aspectj.annotation.MoreClick * *(..))")//方法切入点
     fun methodAnnotated() {
     }
 
@@ -22,7 +23,11 @@ class MoreClick {
     @Around("methodAnnotated()")
     @Throws(Throwable::class)
     fun aroundJoinPoint(proceedingJoinPoint: ProceedingJoinPoint) {
-        val moreCount = 3
+        val methodSignature = proceedingJoinPoint.signature as MethodSignature
+        val method = methodSignature.method
+        val moreClick = method.getAnnotation(com.darkhorse.baseframe.aspectj.annotation.MoreClick::class.java)
+
+        val moreCount = moreClick?.value ?: 3
         val disposeTime = 500
 
         if (mMoreClickDisposable != null && !mMoreClickDisposable!!.isDisposed) {
@@ -33,9 +38,10 @@ class MoreClick {
             proceedingJoinPoint.proceed()
             mMoreClickCount = 0
         } else {
-            TaskUtils.delayAsyncTask(disposeTime.toLong(), object : TaskUtils.IDisposableTask {
+            mMoreClickDisposable = TaskUtils.delayAsyncTask(disposeTime.toLong(), object : TaskUtils.IDisposableTask {
                 override fun run(times: Long, disposable: Disposable) {
                     mMoreClickCount = 0
+                    disposable.dispose()
                 }
             })
         }

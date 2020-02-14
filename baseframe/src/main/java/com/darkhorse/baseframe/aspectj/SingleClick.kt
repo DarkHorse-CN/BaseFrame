@@ -13,7 +13,7 @@ class SingleClick {
      */
     private var mLastClickTimeMillis: Long = 0
 
-    @Pointcut("execution(@com.darkhorse.baseframe.annotation.SingleClick * *(..))")       //方法切入点
+    @Pointcut("execution(@com.darkhorse.baseframe.aspectj.annotation.SingleClick * *(..))")       //方法切入点
     fun methodAnnotated() {
     }
 
@@ -25,12 +25,10 @@ class SingleClick {
     fun aroundJoinPoint(proceedingJoinPoint: ProceedingJoinPoint) {
         val methodSignature = proceedingJoinPoint.signature as MethodSignature
         val method = methodSignature.method
-        if (!method.isAnnotationPresent(com.darkhorse.baseframe.annotation.SingleClick::class.java)) {
-            return
-        }
-        val singleClick = method.getAnnotation(com.darkhorse.baseframe.annotation.SingleClick::class.java)
 
-        val intervalTime = singleClick?.value ?: 1000
+        val singleClick = method.getAnnotation(com.darkhorse.baseframe.aspectj.annotation.SingleClick::class.java)
+
+        val intervalTime = singleClick?.value ?: 3000
         val currentTimeMillis = System.currentTimeMillis()
 
         if (currentTimeMillis - mLastClickTimeMillis < intervalTime) {
