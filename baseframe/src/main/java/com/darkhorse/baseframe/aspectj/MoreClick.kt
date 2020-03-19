@@ -5,6 +5,7 @@ import io.reactivex.disposables.Disposable
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
+import org.aspectj.lang.annotation.Before
 import org.aspectj.lang.annotation.Pointcut
 import org.aspectj.lang.reflect.MethodSignature
 
@@ -14,13 +15,13 @@ class MoreClick {
     private var mMoreClickCount = 0
 
     @Pointcut("execution(@com.darkhorse.baseframe.aspectj.annotation.MoreClick * *(..))")//方法切入点
-    fun methodAnnotated() {
+    fun moreClickAnnotated() {
     }
 
     /**
      * 定义一个切面方法，包裹切点方法
      */
-    @Around("methodAnnotated()")
+    @Around("moreClickAnnotated()")
     @Throws(Throwable::class)
     fun aroundJoinPoint(proceedingJoinPoint: ProceedingJoinPoint) {
         val methodSignature = proceedingJoinPoint.signature as MethodSignature

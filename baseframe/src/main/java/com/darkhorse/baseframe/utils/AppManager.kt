@@ -120,7 +120,6 @@ object AppManager : LifecycleObserver {
         }
     }
 
-
     /**
      * 重启APP
      */
@@ -137,7 +136,7 @@ object AppManager : LifecycleObserver {
     fun startLaunchActivity() {
         d("  AppManager.startLaunchActivity()")
 
-        val application = getApplication();
+        val application = mApplication;
         val startIntent =
                 application.packageManager.getLaunchIntentForPackage(application.packageName)
         if (startIntent != null) {
@@ -151,58 +150,6 @@ object AppManager : LifecycleObserver {
      */
     @JvmStatic
     fun curActivity(): Activity = mActivityStack.peek()
-
-    /**
-     *  获取Context
-     */
-    @JvmStatic
-    fun getApplication() = mApplication
-
-    /**
-     * 启动Activity
-     */
-    @JvmStatic
-    fun startActivity(
-            activity: Activity,
-            clz: Class<out Activity>,
-            bundle: Bundle? = null,
-            isFinished: Boolean = false
-    ) {
-        val intent = Intent(activity, clz)
-        if (bundle != null) {
-            intent.putExtra("data", bundle)
-        }
-        activity.startActivity(intent)
-        if (isFinished) {
-            activity.finish()
-        }
-    }
-
-    /**
-     * 启动ActivityForResult
-     */
-    fun startActivityForResult(
-            activity: Activity,
-            clz: Class<out Activity>,
-            requestCode: Int,
-            bundle: Bundle? = null
-    ) {
-        val intent = Intent(activity, clz)
-        if (bundle != null) {
-            intent.putExtra("data", bundle)
-        }
-        activity.startActivityForResult(intent, requestCode)
-    }
-
-    /**
-     * 跳转浏览器
-     */
-    fun startBrowser(activity: Activity, url: String) {
-        val intent = Intent()
-                .setAction("android.intent.action.VIEW")
-                .setData(Uri.parse(url))
-        activity.startActivity(intent)
-    }
 
     /**
      * 获取应用版本号

@@ -25,6 +25,6 @@ package com.darkhorse.baseframe.aspectj.annotation
  **/
 @Target(AnnotationTarget.FUNCTION)
 annotation class MoreClick (
-        /** * 点击次数时间  */
+        /** * 点击次数  */
         val value: Int = 3
 )

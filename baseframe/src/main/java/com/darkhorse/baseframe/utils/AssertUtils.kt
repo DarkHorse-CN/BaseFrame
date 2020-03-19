@@ -7,7 +7,7 @@ object AssertUtils {
 
     fun readFile(fileName: String): String {
         val stringBuilder = StringBuilder()
-        val inputStream = AppManager.getApplication().assets.open(fileName)
+        val inputStream = AppManager.mApplication.assets.open(fileName)
         val inputStreamReader = InputStreamReader(inputStream)
         val bufferedReader = BufferedReader(inputStreamReader)
         var line: String?

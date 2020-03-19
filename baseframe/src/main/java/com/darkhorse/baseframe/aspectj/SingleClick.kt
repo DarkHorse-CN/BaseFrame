@@ -14,13 +14,13 @@ class SingleClick {
     private var mLastClickTimeMillis: Long = 0
 
     @Pointcut("execution(@com.darkhorse.baseframe.aspectj.annotation.SingleClick * *(..))")       //方法切入点
-    fun methodAnnotated() {
+    fun singleClickAnnotated() {
     }
 
     /**
      * 定义一个切面方法，包裹切点方法
      */
-    @Around("methodAnnotated()")
+    @Around("singleClickAnnotated()")
     @Throws(Throwable::class)
     fun aroundJoinPoint(proceedingJoinPoint: ProceedingJoinPoint) {
         val methodSignature = proceedingJoinPoint.signature as MethodSignature
