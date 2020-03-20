@@ -9,7 +9,6 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.darkhorse.baseframe.extension.d
 import com.darkhorse.baseframe.interfaces.IBaseActivity
 import com.darkhorse.baseframe.utils.AppManager
 import com.darkhorse.baseframe.utils.PermissionsUtils
@@ -40,11 +39,6 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
     override fun onResumeFragments() {
         super.onResumeFragments()
         afterFragmentResume()
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        d("onNewIntent");
-        super.onNewIntent(intent)
     }
 
     /**

@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.darkhorse.baseframe.extension.LogExtensionKt.w;
+import static com.darkhorse.baseframe.extension.LogExtensionKt.logW;
 
 public class FileUtils {
 
@@ -261,7 +261,7 @@ public class FileUtils {
                 file.delete();
             }
 
-            w("inputStreamToFile: filePath = " + file.getAbsolutePath());
+            logW("inputStreamToFile: filePath = " + file.getAbsolutePath());
             // 1.建立通道对象
             FileOutputStream fos = new FileOutputStream(file);
             //注意：这里的写法是错误的，查看available是直接返回0的，docs里面是推荐大家override该方法的

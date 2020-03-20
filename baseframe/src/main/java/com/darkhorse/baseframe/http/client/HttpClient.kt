@@ -1,7 +1,6 @@
 package com.darkhorse.httphelper.client
 
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -12,7 +11,9 @@ object HttpClient {
 
     private val mBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
 
-    var mOkHttpClient: OkHttpClient = mBuilder.build()
+    val mOkHttpClient: OkHttpClient by lazy {
+        mBuilder.build()
+    }
 
     fun addInterceptor(interceptor: Interceptor): HttpClient {
         mBuilder.addInterceptor(interceptor)
@@ -25,7 +26,7 @@ object HttpClient {
         return this
     }
 
-    fun addCookieJar(): HttpClient {
+//    fun addCookieJar(): HttpClient {
 //        mBuilder.cookieJar(object : CookieJar {
 //            @SuppressLint("DefaultLocale")
 //            override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
@@ -38,7 +39,7 @@ object HttpClient {
 //                return null
 //            }
 //        })
-        return this
-    }
+//        return this
+//    }
 
 }

@@ -85,7 +85,6 @@ dependencies {
     //okhttp依赖
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okio:okio:2.2.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     //网络请求Retrofit框架依赖
     api 'com.squareup.retrofit2:retrofit:2.5.0'

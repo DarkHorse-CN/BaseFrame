@@ -1,6 +1,5 @@
 package com.darkhorse.baseframe.okhttp
 
-import android.content.Context
 import com.darkhorse.baseframe.http.interceptor.*
 import com.darkhorse.baseframe.http.minterface.ILanguageListener
 import com.darkhorse.httphelper.client.HttpClient
@@ -11,25 +10,21 @@ import com.darkhorse.httphelper.interfaces.IDoubleTokenListener
 import com.darkhorse.httphelper.interfaces.INetWorkCheckListener
 import com.darkhorse.httphelper.interfaces.ISingleTokenListener
 import okhttp3.Interceptor
-import okhttp3.logging.HttpLoggingInterceptor
 import java.util.*
 
-object HttpHelper  {
+object HttpHelper {
 
     private val mInterceptorList: ArrayList<Interceptor> = ArrayList()
-
     private var mMulUrlInterceptor: MulUrlInterceptor? = null
     private var mNetWorkCheckInterceptor: NetWorkCheckInterceptor? = null
     private var mLanguageInterceptor: LanguageInterceptor? = null
     private var mTokenInterceptor: TokenInterceptor? = null
     private var mDoubleTokenInterceptor: DoubleTokenInterceptor? = null
     private var mRetryInterceptor: RetryInterceptor? = null
-    private var mLevel: HttpLoggingInterceptor.Level? = null
 
     /**
      * 添加BaseUrl
      */
-
     fun addBaseUrl(url: String): HttpHelper {
         RetrofitClient.addBaseUrl(url)
         return this
@@ -73,8 +68,8 @@ object HttpHelper  {
     /**
      * 添加网络检查支持
      */
-    fun supportNetworkCheck(context: Context, iNetWorkCheckListener: INetWorkCheckListener): HttpHelper {
-        mNetWorkCheckInterceptor = NetWorkCheckInterceptor(context, iNetWorkCheckListener)
+    fun supportNetworkCheck(iNetWorkCheckListener: INetWorkCheckListener): HttpHelper {
+        mNetWorkCheckInterceptor = NetWorkCheckInterceptor(iNetWorkCheckListener)
         return this
     }
 
@@ -89,10 +84,10 @@ object HttpHelper  {
     /**
      * 添加Cookie支持
      */
-    fun addCookieAutoManager(): HttpHelper {
-        HttpClient.addCookieJar()
-        return this
-    }
+//    fun addCookieAutoManager(): HttpHelper {
+//        HttpClient.addCookieJar()
+//        return this
+//    }
 
     /**
      * 添加自定义转换器
@@ -118,15 +113,6 @@ object HttpHelper  {
         return this
     }
 
-    /**
-     * 设置日志等级
-     */
-    fun setLogLevel(level: HttpLoggingInterceptor.Level): HttpHelper {
-        mLevel = level
-        return this
-    }
-
-
     fun init() {
         if (mNetWorkCheckInterceptor != null) {
             HttpClient.addInterceptor(mNetWorkCheckInterceptor!!)
@@ -146,15 +132,10 @@ object HttpHelper  {
 
         for (i in mInterceptorList) {
             HttpClient.addInterceptor(i)
-
         }
 
         if (mRetryInterceptor != null) {
             HttpClient.addInterceptor(mRetryInterceptor!!)
-        }
-
-        if (mLevel != null) {
-            HttpClient.addInterceptor(HttpLoggingInterceptor().setLevel(mLevel!!))
         }
 
 

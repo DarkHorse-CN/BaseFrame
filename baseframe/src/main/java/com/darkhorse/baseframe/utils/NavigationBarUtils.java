@@ -1,5 +1,9 @@
 package com.darkhorse.baseframe.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
 import android.os.Build;
 import android.view.View;
 import android.widget.ListPopupWindow;
@@ -7,6 +11,9 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import java.lang.reflect.Field;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.util.Iterator;
 
 /**
  * @author chenzhenjie
@@ -85,4 +92,6 @@ public class NavigationBarUtils {
             e.printStackTrace();
         }
     }
+
+
 }

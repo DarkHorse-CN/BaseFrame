@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.darkhorse.baseframe.extension.LogExtensionKt.e;
+import static com.darkhorse.baseframe.extension.LogExtensionKt.logE;
 
 /**
  * 全局捕获异常
@@ -107,7 +107,7 @@ public class CrashCatchHelper implements Thread.UncaughtExceptionHandler {
                 infos.put("versionCode", versionCode);
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e("an error occured when collect package info" + e.getMessage());
+            logE("an error occured when collect package info" + e.getMessage());
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
@@ -115,7 +115,7 @@ public class CrashCatchHelper implements Thread.UncaughtExceptionHandler {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
             } catch (Exception e) {
-                e("an error occured when collect crash info" + e.getMessage());
+                logE("an error occured when collect crash info" + e.getMessage());
             }
         }
     }
@@ -147,7 +147,7 @@ public class CrashCatchHelper implements Thread.UncaughtExceptionHandler {
             String result = writer.toString();
             sb.append(result);
         } catch (Exception e) {
-            e("an error occured while writing file..." + e.getMessage());
+            logE("an error occured while writing file..." + e.getMessage());
             sb.append("an error occured while writing file...\r\n");
         } finally {
             String time = TimeUtils.timeStamp2DateString(TimeUtils.timeInMillis(), "yyyy-MM-dd");

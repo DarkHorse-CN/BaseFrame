@@ -1,6 +1,6 @@
 package com.darkhorse.baseframe.aspectj
 
-import com.darkhorse.baseframe.extension.i
+import com.darkhorse.baseframe.extension.logI
 import com.darkhorse.baseframe.utils.TimeUtils
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
@@ -17,13 +17,13 @@ class ActivityAspectj {
         val preTime = TimeUtils.timeInMillis();
         point.proceed()
         val costTime = TimeUtils.timeInMillis() - preTime
-        i("$methodName cost $costTime ms")
+        logI("$methodName cost $costTime ms")
     }
 
     @After("execution(* com.darkhorse.baseframe.base.BaseActivity.on**(..))")
     @Throws(Throwable::class)
     fun listenActivityLife(point: JoinPoint) {
         val methodName = "${point.target.javaClass.name}.${point.signature.name}()"
-        i(methodName)
+        logI(methodName)
     }
 }

@@ -17,22 +17,29 @@
                 android:layout_width="match_parent"
                 android:onClick="singleClick"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:text="单击测试" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="moreClick"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:text="多击测试" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:onClick="requestPermissions"
                 android:text="申请相机和存储权限" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:onClick="testHttp"
+                android:text="网络请求测试" />
 
         </LinearLayout>
 

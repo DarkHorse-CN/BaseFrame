@@ -14,6 +14,7 @@ import com.google.gson.JsonParser
 fun toast(msg: Any?, duration: Int = Toast.LENGTH_SHORT) {
     if (msg == null) {
         Toast.makeText(AppManager.mApplication, "Toast content is null!", duration).show()
+        logI("Toast content is null!")
         return
     }
     Toast.makeText(AppManager.mApplication, msg.toString(), Toast.LENGTH_SHORT).show()
@@ -39,36 +40,36 @@ private fun getAutoJumpLogInfo(): Array<String> {
     return infos
 }
 
-fun v(msg: Any) {
+fun logV(msg: Any?) {
     if (AppManager.isDebug()) {
         val infos = getAutoJumpLogInfo()
         Log.v(infos[0], infos[1] + msg.toString())
     }
 }
 
-fun i(msg: Any) {
+fun logI(msg: Any?) {
     val infos = getAutoJumpLogInfo()
     Log.i(infos[0], infos[1] + msg.toString())
 }
 
-fun d(msg: Any) {
+fun logD(msg: Any?) {
     if (AppManager.isDebug()) {
         val infos = getAutoJumpLogInfo()
         Log.d(infos[0], infos[1] + msg.toString())
     }
 }
 
-fun w(msg: Any) {
+fun logW(msg: Any?) {
     val infos = getAutoJumpLogInfo()
     Log.w(infos[0], infos[1] + msg.toString())
 }
 
-fun e(msg: Any) {
+fun logE(msg: Any?) {
     val infos = getAutoJumpLogInfo()
     Log.e(infos[0], infos[1] + msg.toString())
 }
 
-fun json(msg: Any) {
+fun logJson(msg: Any?) {
     val gson = GsonBuilder()
             .setPrettyPrinting()
             .disableHtmlEscaping()

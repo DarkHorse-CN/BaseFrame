@@ -14,8 +14,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import com.darkhorse.baseframe.BuildConfig
 import com.darkhorse.baseframe.base.BaseApplication
-import com.darkhorse.baseframe.extension.d
-import com.darkhorse.baseframe.extension.e
+import com.darkhorse.baseframe.extension.logE
+import com.darkhorse.baseframe.extension.logI
 import com.darkhorse.baseframe.extension.toast
 import com.darkhorse.baseframe.service.DaemonService
 import com.darkhorse.baseframe.service.GuardService
@@ -40,6 +40,7 @@ object AppManager : LifecycleObserver {
 
     fun init(application: BaseApplication): AppManager {
         mApplication = application
+        SPUtils.init(mApplication, getPackageName())
         return this;
     }
 
@@ -134,8 +135,7 @@ object AppManager : LifecycleObserver {
      */
     @JvmStatic
     fun startLaunchActivity() {
-        d("  AppManager.startLaunchActivity()")
-
+        logI("AppManager.startLaunchActivity()")
         val application = mApplication;
         val startIntent =
                 application.packageManager.getLaunchIntentForPackage(application.packageName)
@@ -237,7 +237,7 @@ object AppManager : LifecycleObserver {
         val activityManager = getSystemService(Service.ACTIVITY_SERVICE) as ActivityManager
         val runningAppProcessInfoList = activityManager.runningAppProcesses;
         if (runningAppProcessInfoList == null) {
-            e("runningAppProcessInfoList is null")
+            logE("runningAppProcessInfoList is null")
             return false
         }
         for (runningAppProcessInfo in runningAppProcessInfoList) {

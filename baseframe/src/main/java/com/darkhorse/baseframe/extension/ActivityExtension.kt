@@ -10,7 +10,6 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
-import com.darkhorse.baseframe.utils.AppManager
 
 /**
  * Description:
@@ -21,7 +20,7 @@ fun Activity.startActivity(
         bundle: Bundle? = null,
         isFinished: Boolean = false
 ) {
-    d("${this.localClassName} -> ${clz.canonicalName}")
+    logI("${this.localClassName} -> ${clz.canonicalName}")
     this.startActivity(clz, bundle, isFinished)
 }
 
@@ -30,7 +29,7 @@ fun Activity.startActivityForResult(
         requestCode: Int,
         bundle: Bundle? = null
 ) {
-    d("${this.localClassName} -> ${clz.canonicalName}")
+    logI("${this.localClassName} -> ${clz.canonicalName}")
     startActivityForResult(clz, requestCode, bundle)
 }
 

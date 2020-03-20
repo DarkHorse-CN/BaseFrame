@@ -8,7 +8,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import com.darkhorse.baseframe.DeamonProcess
-import com.darkhorse.baseframe.extension.i
+import com.darkhorse.baseframe.extension.logI
 import com.darkhorse.baseframe.utils.AppManager
 
 /**
@@ -20,11 +20,11 @@ class DaemonService : Service() {
 
     private val mServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            i("与GuardService 建立连接")
+            logI("与GuardService 建立连接")
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
-            i("与GuardService 断开连接")
+            logI("与GuardService 断开连接")
 
             //重新启动GuardService
             startService(Intent(this@DaemonService, GuardService::class.java))
