@@ -1,5 +1,6 @@
 package com.darkhorse.baseframe.base
 
+import com.darkhorse.baseframe.constant.GlobalVal
 import com.darkhorse.baseframe.extension.logE
 import com.darkhorse.baseframe.extension.logI
 import com.darkhorse.baseframe.extension.toast
@@ -20,6 +21,8 @@ class MyApplication : BaseApplication() {
         //初始化全局管理器
         AppManager.init(this)
 
+
+        AppManager.startLogcatCatch(7, GlobalVal.DIR_LOGCAT,"logcat | grep \"(${AppManager.getProcessId()})\"")
 
         //初始化Http请求辅助类
 //                .supportNetworkCheck()

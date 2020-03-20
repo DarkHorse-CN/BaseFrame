@@ -12,23 +12,17 @@ public class LogcatCatchHelper {
     private static String mLogcatPath;
     private LogDumper mLogDumper = null;
 
-    /**
-     * 应用进程ID
-     */
-    private int mPId;
-
     private LogcatCatchHelper() {
     }
 
-    public void start(int deleteDay, String path) {
-        mPId = android.os.Process.myPid();
+    public void start(int deleteDay, String path, String cmds) {
         mLogcatPath = path;
         File file = new File(mLogcatPath);
         FileUtils.createOrExistsDir(file);
         autoClear(deleteDay);
 
         if (mLogDumper == null) {
-            mLogDumper = new LogDumper(String.valueOf(mPId));
+            mLogDumper = new LogDumper(cmds);
         }
         mLogDumper.start();
     }
@@ -45,25 +39,11 @@ public class LogcatCatchHelper {
         private Process logcatProc;
         private BufferedReader mReader = null;
         private boolean mRunning = true;
-        String cmds;
+        private String cmds;
         private String mPID;
 
-        LogDumper(String pid) {
-            mPID = pid;
-            /**
-             *
-             * 日志等级：*:v , *:d , *:w , *:e , *:f , *:s
-             *
-             * 显示当前mPID程序的 E和W等级的日志.
-             *
-             * */
-
-            // cmds = "logcat *:e *:w | grep \"(" + mPID + ")\"";
-//            cmds = "logcat *:e *:w | grep \"(" + mPID + ")\"";//打印所有日志信息
-            cmds = "logcat *:e *:w ";//打印所有日志信息
-
-            // cmds = "logcat -s way";//打印标签过滤信息
-            //cmds = "logcat *:e *:i | grep \"(" + mPID + ")\"";
+        LogDumper( String cmds) {
+            this.cmds = cmds+"";
         }
 
         void stopLogs() {
@@ -73,16 +53,10 @@ public class LogcatCatchHelper {
         @Override
         public void run() {
             try {
-//                ArrayList<String> getLog = new ArrayList<>();
-//                getLog.add("logcat");
-//                getLog.add("-w");
-//                getLog.add("-e");
-//                getLog.add("time");
                 ArrayList<String> clearLog = new ArrayList<>();
                 clearLog.add("logcat");
                 clearLog.add("-c");
 
-//                logcatProc = Runtime.getRuntime().exec(getLog.toArray(new String[getLog.size()]));
                 logcatProc = Runtime.getRuntime().exec(cmds);
                 mReader = new BufferedReader(new InputStreamReader(logcatProc.getInputStream()), 1024);
                 Runtime.getRuntime().exec(clearLog.toArray(new String[clearLog.size()]));
@@ -96,26 +70,8 @@ public class LogcatCatchHelper {
                         continue;
                     }
 
-                    if (!line.contains(" MDS_Log") &&
-                            !line.contains(" stunport.cc") &&
-                            !line.contains(" port.cc") &&
-                            !line.contains(" rtpsender.cc") &&
-                            !line.contains(" physicalsocketserver.cc") &&
-                            !line.contains(" dtlstransport.cc") &&
-                            !line.contains(" common_header.cc") &&
-                            !line.contains(" rtcp_receiver.cc") &&
-                            !line.contains(" packet_buffer.cc") &&
-                            !line.contains(" sender_report.cc") &&
-                            !line.contains(" rtp_frame_reference_finder.cc") &&
-                            !line.contains(" packet_buffer.cc")
-                    ) {
-                        String time = TimeUtils.timeStamp2DateString(TimeUtils.timeInMillis(), "yyyy-MM-dd HH");
-                        if (line.length() > 30) {
-                            String text = line.substring(19, 30);
-                            line = line.replace(text, "");
-                        }
-                        FileUtils.writeFileBottom(line + "\n", mLogcatPath + File.separator + "logcat-" + time + ".log");
-                    }
+                    String time = TimeUtils.timeStamp2DateString(TimeUtils.timeInMillis(), "yyyy-MM-dd");
+                    FileUtils.writeFileBottom(line + "\n", mLogcatPath + File.separator + "logcat-" + time + ".log");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

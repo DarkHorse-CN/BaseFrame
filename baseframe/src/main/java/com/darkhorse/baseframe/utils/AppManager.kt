@@ -216,8 +216,8 @@ object AppManager : LifecycleObserver {
     /**
      * 开始Logcat日志捕捉
      */
-    fun startLogcatCatch(deleteDay: Int, path: String): AppManager {
-        LogcatCatchHelper.getInstance().start(deleteDay, path)
+    fun startLogcatCatch(deleteDay: Int, path: String, cmds: String): AppManager {
+        LogcatCatchHelper.getInstance().start(deleteDay, path, cmds)
         return this
     }
 
@@ -274,4 +274,8 @@ object AppManager : LifecycleObserver {
      */
     fun getSystemService(name: String): Any? = mApplication.getSystemService(name)
 
+    /**
+     * 获取进程ID
+     */
+    fun getProcessId() = android.os.Process.myPid()
 }
