@@ -13,6 +13,7 @@ import com.darkhorse.baseframe.extension.toast
 import com.darkhorse.baseframe.retrofit.BaseResponse
 import com.darkhorse.baseframe.permission.PermissionCode
 import com.darkhorse.baseframe.retrofit.HttpObserver
+import com.darkhorse.baseframe.utils.AppManager
 import com.darkhorse.httphelper.extension.io_main
 import com.example.httphelper.retrofit.API
 import io.reactivex.Observer
@@ -28,6 +29,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     }
 
     override fun initData() {
+        AppManager.curActivity()
     }
 
     @SingleClick(3000)

@@ -5,13 +5,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.Service
 import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
 import android.os.Environment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import com.darkhorse.baseframe.BuildConfig
 import com.darkhorse.baseframe.base.BaseApplication
 import com.darkhorse.baseframe.extension.logE
@@ -29,7 +23,7 @@ import java.util.*
  * Description:
  * Created by DarkHorse on 2018/6/8.
  */
-object AppManager : LifecycleObserver {
+object AppManager {
     private var exitTime = 0L
 
     private val mActivityStack: Stack<Activity> by lazy {
@@ -47,17 +41,15 @@ object AppManager : LifecycleObserver {
     /**
      * 添加Activity
      */
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun addActivity(owner: LifecycleOwner) {
-        mActivityStack.push(owner as Activity)
+    fun addActivity(activity: Activity) {
+        mActivityStack.push(activity)
     }
 
     /**
      * 移除Activity
      */
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun removeActivity(owner: LifecycleOwner) {
-        mActivityStack.remove(owner as Activity)
+    fun removeActivity(activity: Activity) {
+        mActivityStack.remove(activity)
     }
 
     /**

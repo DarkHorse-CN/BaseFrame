@@ -24,8 +24,6 @@ class MyApplication : BaseApplication() {
 
         AppManager.startLogcatCatch(7, GlobalVal.DIR_LOGCAT,"logcat | grep \"(${AppManager.getProcessId()})\"")
 
-        //初始化Http请求辅助类
-//                .supportNetworkCheck()
         HttpHelper.addBaseUrl("http://www.baidu.com")
                 .supportMulBaseUrl()
                 .supportNetworkCheck(object : INetWorkCheckListener {

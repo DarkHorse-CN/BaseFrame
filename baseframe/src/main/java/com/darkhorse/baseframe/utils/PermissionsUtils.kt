@@ -17,15 +17,15 @@ object PermissionsUtils {
         if (codes != null) {
             for (bean in codes) {
                 when (bean.code) {
-                    PermissionCode.CALENDAR -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.READ_CALENDAR)) return false
-                    PermissionCode.CAMERA -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.CAMERA)) return false
-                    PermissionCode.CONTACTS -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.READ_CONTACTS)) return false
-                    PermissionCode.LOCATION -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) return false
-                    PermissionCode.AUDIO -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.RECORD_AUDIO)) return false
-                    PermissionCode.PHONE -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.CALL_PHONE)) return false
-                    PermissionCode.SMS -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.READ_SMS)) return false
-                    PermissionCode.STORAGE -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) return false
-                    PermissionCode.SENSORS -> if (!EasyPermissions.hasPermissions(AppManager.curActivity(), Manifest.permission.BODY_SENSORS)) return false
+                    PermissionCode.CALENDAR -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.READ_CALENDAR)) return false
+                    PermissionCode.CAMERA -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.CAMERA)) return false
+                    PermissionCode.CONTACTS -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.READ_CONTACTS)) return false
+                    PermissionCode.LOCATION -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.ACCESS_FINE_LOCATION)) return false
+                    PermissionCode.AUDIO -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.RECORD_AUDIO)) return false
+                    PermissionCode.PHONE -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.CALL_PHONE)) return false
+                    PermissionCode.SMS -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.READ_SMS)) return false
+                    PermissionCode.STORAGE -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.READ_EXTERNAL_STORAGE)) return false
+                    PermissionCode.SENSORS -> if (!EasyPermissions.hasPermissions(AppManager.mApplication, Manifest.permission.BODY_SENSORS)) return false
                 }
             }
         }

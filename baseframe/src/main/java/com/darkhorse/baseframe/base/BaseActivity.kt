@@ -29,11 +29,34 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         super.onCreate(savedInstanceState)
         mActivity = this;
         mBundle = intent.getBundleExtra("data") ?: Bundle()
-        lifecycle.addObserver(AppManager)
         preSetContentView()
         setContentView(getContentView())
         initView()
         initData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
     }
 
     override fun onResumeFragments() {
