@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.Intent
 import android.os.Environment
 import com.darkhorse.baseframe.BuildConfig
+import com.darkhorse.baseframe.base.BaseActivity
 import com.darkhorse.baseframe.base.BaseApplication
 import com.darkhorse.baseframe.extension.logE
 import com.darkhorse.baseframe.extension.logI
@@ -26,8 +27,8 @@ import java.util.*
 object AppManager {
     private var exitTime = 0L
 
-    private val mActivityStack: Stack<Activity> by lazy {
-        Stack<Activity>()
+    private val mActivityStack: Stack<BaseActivity> by lazy {
+        Stack<BaseActivity>()
     }
 
     lateinit var mApplication: BaseApplication
@@ -41,21 +42,23 @@ object AppManager {
     /**
      * 添加Activity
      */
-    fun addActivity(activity: Activity) {
+    fun addActivity(activity: BaseActivity) {
+        logI("mActivityStack.addActivity -> ${activity.javaClass.name}")
         mActivityStack.push(activity)
     }
 
     /**
      * 移除Activity
      */
-    fun removeActivity(activity: Activity) {
+    fun removeActivity(activity: BaseActivity) {
+        logI("mActivityStack.removeActivity -> ${activity.javaClass.name}")
         mActivityStack.remove(activity)
     }
 
     /**
      * 关闭指定Activity
      */
-    fun finishActivity(activity: Activity) {
+    private fun finishActivity(activity: BaseActivity) {
         activity.finish()
     }
 
@@ -217,7 +220,7 @@ object AppManager {
      * 获取应用Activity栈
      */
     @JvmStatic
-    fun getActivityStack(): Stack<Activity> {
+    fun getActivityStack(): Stack<BaseActivity> {
         return mActivityStack;
     }
 

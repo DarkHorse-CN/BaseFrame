@@ -1,16 +1,10 @@
 package com.darkhorse.baseframe.base
 
 import android.app.Activity
-import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.darkhorse.baseframe.interfaces.IBaseActivity
-import com.darkhorse.baseframe.utils.AppManager
 import com.darkhorse.baseframe.utils.PermissionsUtils
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
@@ -33,6 +27,10 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
         setContentView(getContentView())
         initView()
         initData()
+    }
+
+    override fun setContentView(view: View) {
+        super.setContentView(view)
     }
 
     override fun onStart() {

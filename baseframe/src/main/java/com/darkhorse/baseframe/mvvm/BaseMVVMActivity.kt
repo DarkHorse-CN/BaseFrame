@@ -36,11 +36,6 @@ abstract class BaseMVVMActivity<D : BaseData, VM : BaseViewModel<D>, B : ViewDat
         super.onCreate(savedInstanceState)
     }
 
-    override fun preSetContentView() {
-        super.preSetContentView()
-    }
-
-
     override fun getContentView(): View {
         mBinding = DataBindingUtil.setContentView(mActivity, getLayoutId())
         mBinding.lifecycleOwner = this

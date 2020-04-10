@@ -17,29 +17,39 @@ class ActivityAspectj {
     @Around("execution(* com.darkhorse.baseframe.base.BaseActivity.setContentView(..))")
     @Throws(Throwable::class)
     fun getContentViewTime(point: ProceedingJoinPoint) {
-        val methodName = "${point.target.javaClass.name}.${point.signature.name}()"
-        val preTime = TimeUtils.timeInMillis();
-        point.proceed()
-        val costTime = TimeUtils.timeInMillis() - preTime
-        logI("$methodName cost $costTime ms")
+        if (point.signature.declaringTypeName == "com.darkhorse.baseframe.base.BaseActivity") {
+            val className = point.target.javaClass.name;
+            val methodName = point.signature.name;
+            val preTime = TimeUtils.timeInMillis();
+            point.proceed()
+            val costTime = TimeUtils.timeInMillis() - preTime
+            logI("$className.$methodName() cost $costTime ms")
+        }
     }
 
     @After("execution(* com.darkhorse.baseframe.base.BaseActivity.on**(..))")
     @Throws(Throwable::class)
     fun listenActivityLife(point: JoinPoint) {
-        val methodName = "${point.target.javaClass.name}.${point.signature.name}()"
-        logI(methodName)
+        if (point.signature.declaringTypeName == "com.darkhorse.baseframe.base.BaseActivity") {
+            val className = point.target.javaClass.name;
+            val methodName = point.signature.name;
+            logI("$className.$methodName()")
+        }
     }
 
     @Before("execution(* com.darkhorse.baseframe.base.BaseActivity.onCreate(..))")
     @Throws(Throwable::class)
     fun listenActivityOnCreate(point: JoinPoint) {
-        AppManager.addActivity(point.`this` as Activity)
+        if (point.signature.declaringTypeName == "com.darkhorse.baseframe.base.BaseActivity") {
+            AppManager.addActivity(point.`this` as BaseActivity)
+        }
     }
 
-    @After("call(* com.darkhorse.baseframe.base.BaseActivity.onDestroy(..))")
+    @Before("execution(* com.darkhorse.baseframe.base.BaseActivity.onDestroy(..))")
     @Throws(Throwable::class)
     fun listenActivityOnDestroy(point: JoinPoint) {
-        AppManager.removeActivity(point.`this` as Activity)
+        if (point.signature.declaringTypeName == "com.darkhorse.baseframe.base.BaseActivity") {
+            AppManager.removeActivity(point.`this` as BaseActivity)
+        }
     }
 }
