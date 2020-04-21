@@ -17,12 +17,12 @@ abstract class BaseActivity : AppCompatActivity(), EasyPermissions.PermissionCal
 
     protected lateinit var mActivity: Activity
 
-    protected lateinit var mBundle: Bundle
+    protected var mBundle: Bundle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivity = this;
-        mBundle = intent.getBundleExtra("data") ?: Bundle()
+        mBundle = intent.getBundleExtra("data")
         preSetContentView()
         setContentView(getContentView())
         initView()

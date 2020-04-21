@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.darkhorse.baseframe">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -18,9 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.TestCoroutinesActivity"></activity>
+        <activity android:name=".ui.activity.TestArouterActivity" />
         <activity android:name=".ui.activity.BindingActivity" />
         <activity android:name=".ui.activity.AMvvmActivity" />
-        <activity android:name=".AOPActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +30,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.NetworkChangedReceiver"/>
+        <receiver android:name=".receiver.NetworkChangedReceiver" />
 
         <meta-data
             android:name="design_width_in_dp"

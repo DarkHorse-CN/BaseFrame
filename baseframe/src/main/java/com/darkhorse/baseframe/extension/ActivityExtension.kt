@@ -21,7 +21,14 @@ fun Activity.startActivity(
         isFinished: Boolean = false
 ) {
     logI("${this.localClassName} -> ${clz.canonicalName}")
-    this.startActivity(clz, bundle, isFinished)
+    val intent = Intent(this, clz)
+    if (bundle != null) {
+        intent.putExtra("data", bundle)
+    }
+    this.startActivity(intent)
+    if (isFinished) {
+        this.finish()
+    }
 }
 
 fun Activity.startActivityForResult(
@@ -31,6 +38,11 @@ fun Activity.startActivityForResult(
 ) {
     logI("${this.localClassName} -> ${clz.canonicalName}")
     startActivityForResult(clz, requestCode, bundle)
+    val intent = Intent(this, clz)
+    if (bundle != null) {
+        intent.putExtra("data", bundle)
+    }
+    this.startActivityForResult(intent,requestCode)
 }
 
 fun Activity.startBrowser(url: String) {

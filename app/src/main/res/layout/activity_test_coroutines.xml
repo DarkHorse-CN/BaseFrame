@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.darkhorse.baseframe.ui.activity.TestCoroutinesActivity">
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -15,47 +19,57 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:onClick="singleClick"
+                android:onClick="main1"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="单击测试" />
+                android:text="测试代码1" />
 
             <Button
                 android:layout_width="match_parent"
+                android:onClick="main2"
                 android:layout_height="wrap_content"
-                android:onClick="moreClick"
                 android:layout_margin="10dp"
-                android:text="多击测试" />
+                android:text="测试代码2" />
 
             <Button
                 android:layout_width="match_parent"
+                android:onClick="main3"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:onClick="requestPermissions"
-                android:text="申请相机和存储权限" />
+                android:text="测试代码3" />
+
 
             <Button
                 android:layout_width="match_parent"
+                android:onClick="main4"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:onClick="testHttp"
-                android:text="网络请求测试" />
+                android:text="测试代码4" />
 
             <Button
                 android:layout_width="match_parent"
+                android:onClick="main5"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:onClick="testArouter"
-                android:text="阿里路由跳转测试" />
+                android:text="测试代码5" />
+
 
             <Button
                 android:layout_width="match_parent"
+                android:onClick="main6"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:onClick="testCoroutines"
-                android:text="kotlin协程测试" />
+                android:text="测试代码6" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:onClick="main7"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="测试代码7" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-</layout>
+
+</LinearLayout>

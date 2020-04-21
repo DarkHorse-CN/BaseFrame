@@ -12,7 +12,6 @@ object TaskUtils {
 
     fun delayTask(timestamp: Long, iDisposableTask: IDisposableTask): Disposable {
         val disposableObserver = createObserver(iDisposableTask)
-
         Observable.timer(timestamp, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(disposableObserver)

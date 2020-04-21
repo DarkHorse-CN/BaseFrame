@@ -35,7 +35,6 @@ object AppManager {
 
     fun init(application: BaseApplication): AppManager {
         mApplication = application
-        SPUtils.init(mApplication, getPackageName())
         return this;
     }
 
@@ -269,8 +268,4 @@ object AppManager {
      */
     fun getSystemService(name: String): Any? = mApplication.getSystemService(name)
 
-    /**
-     * 获取进程ID
-     */
-    fun getProcessId() = android.os.Process.myPid()
 }
